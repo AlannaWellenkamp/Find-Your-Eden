@@ -1,14 +1,14 @@
 'use: strict';
 
-let fetched = 0;
-let matchOptions = { housing: '1', costOfLiving: '1', travelConnectivity: '1', commute: '1', safety: '1', healthcare: '1', education: '1', environmentalQuality: '1', taxation: '1', leisureAndCulture: '1' };
+let matchOptions = {};
 let cityList = [];
 const cities = ['albuquerque', 'anchorage', 'asheville', 'atlanta', 'austin', 'baltimore', 'birmingham-al', 'boise', 'boston', 'boulder', 'buffalo', 'charleston', 'charlotte', 'chattanooga', 'chicago', 'cincinnati', 'cleveland', 'colorado-springs', 'columbus', 'dallas', 'denver', 'des-moines', 'detroit', 'eugene', 'fort-collins', 'houston', 'indianapolis', 'jacksonville', 'kansas-city', 'knoxville', 'las-vegas', 'los-angeles', 'madison', 'memphis', 'miami', 'milwaukee', 'minneapolis-saint-paul', 'nashville', 'new-orleans', 'new-york', 'oklahoma-city', 'omaha', 'orlando', 'philadelphia', 'phoenix', 'pittsburgh', 'portland-me', 'portland-or', 'raleigh', 'richmond', 'rochester', 'salt-lake-city', 'san-antonio', 'san-diego', 'san-francisco-bay-area', 'san-juan', 'san-luis-obispo', 'st-louis', 'tampa-bay-area', 'washington-dc'];
 let scores = {};
 let scoresSorted = [];
+let stage = 'home';
+let citySpecific = '';
 
-
-function cityLoop() {
+function fetchCityInfo() {
     console.log(cities);
     for (let i = 0; i < cities.length; i++) {
         fetch(`https://api.teleport.org/api/urban_areas/slug:${cities[i]}/scores/`)
@@ -33,12 +33,88 @@ function buildCityList(city, responseJson) {
         leisureAndCulture: responseJson.categories[14].score_out_of_10
     };
     cityList.push(currentCity);
-    if (cityList.length === 60) {
-        console.log(cityList);
-        calculateScore(cityList, cities, matchOptions);
-    }
-
 }
+
+
+function render() {
+    const currentRender = generateHtml();
+    $('main').html(currentRender);
+    console.log('rendered');
+}
+
+function generateHtml(store) {
+    if (stage === 'home') {
+        return generateHomeElement();
+    }
+    else if (stage === 'matchSelect') {
+        return generateMatchSelect();
+    }
+    else if (stage === 'matchResults') {
+        return generateMatchResults();
+    }
+    else if (stage === 'topByCategorySelect') {
+        return generateTopByCategory();
+    }
+    else if (stage === 'topByCategoryResults') {
+        return generateTopByCategoryResults();
+    }
+    else if (stage === 'topOverall') {
+        return generateTopOverall();
+    }
+    else if (stage === 'citySpecific') {
+        return generateCitySpecific();
+    }
+}
+
+
+
+
+function handleHomeSelect() {
+    $('body').on('click', '.js-home', function (event) {
+        stage = 'home';
+        render();
+    })
+}
+
+function handleMatchPageSelect() {
+    $('body').on('click', '.js-match-page', function (event) {
+        stage = 'matchSelect';
+        render();
+    })
+}
+
+function handleMatchSubmit() {
+    $('body').on('submit', '#js-match-submit', function (event) {
+        event.preventDefault();
+        collectMatchOptions();
+    })
+}
+
+function handleTopByCategorySelect() {
+    $('body').on('click', '.js-top-by-category', function (event) {
+        stage = 'topByCategory';
+        render();
+    })
+}
+
+function handleTopByCategorySubmit() {
+    $('body').on('click', '#js-top-by-category-submit', function (event) {
+        findTopByCategory();
+    })
+}
+
+function handleTopOverallSelect() {
+    $('body').on('click', '.js-top-overall', function (event) {
+        findTopOverall();
+    })
+}
+
+function handleCitySelect() {
+    $('body').on('click', '.js-city-select', function (event) {
+
+    }
+}
+
 
 
 
@@ -46,7 +122,7 @@ function calculateScore(cityList, cities, matchOptions) {
     console.log('calculating scores');
     for (let i = 0; i < cities.length; i++) {
         console.log('calculating score for ' + cities[i]);
-        let currentCity = {}; 
+        let currentCity = {};
         currentCity = cityList.find(o => o.name === cities[i]);
         let score = 0;
         score += (currentCity.housing) * (matchOptions.housing);
@@ -62,31 +138,30 @@ function calculateScore(cityList, cities, matchOptions) {
         scores[cities[i]] = score;
     }
     console.log(scores);
-    var scoresSorted = Object.keys(scores).sort(function(a,b){return scores[b]-scores[a]});
+    var scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
     console.log(scoresSorted);
 }
 
 
 function runApp() {
-    console.log('app running');
-    cityLoop();
-    
-
+    render();
+    handleHomeSelect();
+    handleMatchPageSelect();
+    handleMatchSubmit();
+    handleTopByCategorySelect();
+    handleTopByCategorySubmit();
+    handleTopOverallSelect();
+    handleCitySelect();
 }
 
 
 
 /*window.onload = function () {
-    if (sessionStorage.getItem("hasCodeRunBefore") === null) {
+    if (sessionStorage.getItem('hasCodeRunBefore') === null) {
         Your code here.
-        sessionStorage.setItem("hasCodeRunBefore", true);
+        sessionStorage.setItem('hasCodeRunBefore', true);
     }
 }*/
 
-runApp();
-
-/*
+fetchCityInfo();
 $(runApp);
-*/
-
-
