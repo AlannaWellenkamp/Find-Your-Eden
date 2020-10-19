@@ -70,9 +70,6 @@ function generateHtml(store) {
     else if (stage === 'topByCategoryResults') {
         return generateTopByCategoryResultsElement();
     }
-    else if (stage === 'topOverall') {
-        return generateTopOverallElement();
-    }
     else if (stage === 'citySpecific') {
         return generateCitySpecificElement();
     }
@@ -335,7 +332,7 @@ function generateCitySpecificElement() {
     <li>Environmental Quality: ${currentCity.environmentalQuality}</li>
     <li>Taxation: ${currentCity.taxation}</li>
     <li>Leisure and Culture: ${currentCity.leisureAndCulture}</li>
-    <p>Additional Scores:</p>
+    <p>Additional Information:</p>
     <li>Startups: ${currentCity.startups}</li>
     <li>Venture Capital: ${currentCity.ventureCapital}</li>
     <li>Business Freedom: ${currentCity.businessFreedom}</li>
@@ -396,8 +393,7 @@ function handleTopByCategorySubmit() {
 
 function handleTopOverallSelect() {
     $('body').on('click', '.js-top-overall', function (event) {
-        category = $(this).attr("id");
-        findTopOverall(category);
+        findTopOverall();
     })
 }
 
@@ -410,7 +406,7 @@ function handleCitySelect() {
 }
 
 
-/*------------------------------------------------------ PROCESS MATCH RESULTS --------------------------------------------------------------*/
+/*------------------------------------------------------ PROCESS RESULTS --------------------------------------------------------------*/
 
 
 function collectMatchOptions() {
@@ -434,7 +430,6 @@ function collectMatchOptions() {
 }
 
 function calculateScore() {
-    console.log('calculating scores');
     let currentCity = {};
     for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
@@ -456,8 +451,6 @@ function calculateScore() {
     render();
 }
 
-/*------------------------------------------------------ PROCESS TOP BY CATEGORY --------------------------------------------------------------*/
-
 function findTopByCategory() {
     console.log('sorting top by category: ' + category)
     for (let i = 0; i < cities.length; i++) {
@@ -469,6 +462,28 @@ function findTopByCategory() {
     scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
     console.log(scoresSorted)
     stage = 'topByCategoryResults';
+    render();
+}
+
+function findTopOverall() {
+    let currentCity = {};
+    for (let i = 0; i < cities.length; i++) {
+        currentCity = cityList.find(o => o.name === cities[i]);
+        let score = 0;
+        score += (currentCity.housing);
+        score += currentCity.costOfLiving;
+        score += currentCity.travelConnectivity;
+        score += currentCity.commute;
+        score += currentCity.safety;
+        score += currentCity.healthcare;
+        score += currentCity.education;
+        score += currentCity.environmentalQuality;
+        score += currentCity.taxation;
+        score += currentCity.leisureAndCulture;
+        scores[cities[i]] = score;
+    }
+    scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
+    stage = 'matchResults';
     render();
 }
 
