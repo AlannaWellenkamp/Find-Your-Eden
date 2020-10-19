@@ -7,6 +7,7 @@ let scores = {};
 let scoresSorted = [];
 let stage = 'home';
 let citySpecific = '';
+let category = '';
 
 /*------------------------------------------------------ FETCH/BUILD CITY INFO --------------------------------------------------------------*/
 
@@ -24,14 +25,21 @@ function buildCityList(city, responseJson) {
         name: city,
         housing: responseJson.categories[0].score_out_of_10,
         costOfLiving: responseJson.categories[1].score_out_of_10,
+        startups: responseJson.categories[2].score_out_of_10,
+        ventureCapital: responseJson.categories[3].score_out_of_10,
         travelConnectivity: responseJson.categories[4].score_out_of_10,
         commute: responseJson.categories[5].score_out_of_10,
+        businessFreedom: responseJson.categories[6].score_out_of_10,
         safety: responseJson.categories[7].score_out_of_10,
         healthcare: responseJson.categories[8].score_out_of_10,
         education: responseJson.categories[9].score_out_of_10,
         environmentalQuality: responseJson.categories[10].score_out_of_10,
+        economy: responseJson.categories[11].score_out_of_10,
         taxation: responseJson.categories[12].score_out_of_10,
-        leisureAndCulture: responseJson.categories[14].score_out_of_10
+        internetAccess: responseJson.categories[13].score_out_of_10,
+        leisureAndCulture: responseJson.categories[14].score_out_of_10,
+        tolerance: responseJson.categories[15].score_out_of_10,
+        outdoors: responseJson.categories[16].score_out_of_10
     };
     cityList.push(currentCity);
 }
@@ -241,9 +249,15 @@ function generateMatchSelectElement() {
 function generateMatchResultsElement() {
     let resultsElement = '<h2>Results:</h2><ol>';
     let currentCity = {};
-    for (let i = 0; i < 10; i ++) {        
+    for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
-        resultsElement += `<li><button class="city-button">${currentCity.name}</button>
+        for (var key of Object.keys(currentCity)) {
+            if (typeof currentCity[key] === 'number' && currentCity[key] !== 0) {
+                currentCity[key] = (Math.round(currentCity[key] * 100)) / 100;
+            }
+        }
+        resultsElement += `<div class="city-result" id="${currentCity.name}-result">
+        <li><button class="city-button js-city-select" id="${currentCity.name}">${currentCity.name}</button>
         <ul>
             <li>Housing: ${currentCity.housing}</li>
             <li>Cost of Living: ${currentCity.costOfLiving}</li>
@@ -256,30 +270,51 @@ function generateMatchResultsElement() {
             <li>Taxation: ${currentCity.taxation}</li>
             <li>Leisure and Culture: ${currentCity.leisureAndCulture}</li>
         </ul>
-    </li>`;
+    </li>
+    </div>`;
         if (i === 9) {
             resultsElement += '</ol>'
         }
-    }    
+    }
     return resultsElement;
 }
 
 function generateTopByCategoryElement() {
     return ` <h2>Select a category to see the top results</h2>
-    <button id="housing-button" value="go to housing" class="category-button">Housing</button>
-    <button id="cost-of-living-button" value="go to cost of living" class="category-button">Cost of Living</button>
-    <button id="travel-connectivity-button" value="go to travel connectivity" class="category-button">Travel Connectivity</button>
-    <button id="commute-button" value="go to commute" class="category-button">Commute</button>
-    <button id="safety-button" value="go to safety" class="category-button">Safety</button>
-    <button id="healthcare-button" value="go to healthcare" class="category-button">Healthcare</button>
-    <button id="education-button" value="go to education" class="category-button">Education</button>
-    <button id="environmental-quality-button" value="go to environmental quality" class="category-button">Environmental Quality</button>
-    <button id="taxation-button" value="go to taxation" class="category-button">Taxation</button>
-    <button id="leisure-and-culture-button" value="go to leisure-and-culture" class="category-button">Leisure and Culture</button>`;
+    <button id="housing" value="go to housing" class="category-button">Housing</button>
+    <button id="costOfLiving" value="go to cost of living" class="category-button">Cost of Living</button>
+    <button id="travelConnectivity" value="go to travel connectivity" class="category-button">Travel Connectivity</button>
+    <button id="commute" value="go to commute" class="category-button">Commute</button>
+    <button id="safety" value="go to safety" class="category-button">Safety</button>
+    <button id="healthcare" value="go to healthcare" class="category-button">Healthcare</button>
+    <button id="education" value="go to education" class="category-button">Education</button>
+    <button id="environmentalQuality" value="go to environmental quality" class="category-button">Environmental Quality</button>
+    <button id="taxation" value="go to taxation" class="category-button">Taxation</button>
+    <button id="leisureAndCulture" value="go to leisure-and-culture" class="category-button">Leisure and Culture</button>`;
 }
 
 function generateTopByCategoryResultsElement() {
-    return ``;
+    let resultsElement = '<h2>Results:</h2><ol>';
+    let currentCity = {};
+    for (let i = 0; i < 10; i++) {
+        currentCity = cityList.find(o => o.name === scoresSorted[i]);
+        for (var key of Object.keys(currentCity)) {
+            if (typeof currentCity[key] === 'number' && currentCity[key] !== 0) {
+                currentCity[key] = (Math.round(currentCity[key] * 100)) / 100;
+            }
+        }
+        resultsElement += `<div class="city-result" id="${currentCity.name}-result">
+        <li><button class="city-button js-city-select" id="${currentCity.name}">${currentCity.name}</button>
+        <ul>
+            <li>${category}: ${currentCity[category]}</li>
+        </ul>
+    </li>
+    </div>`;
+        if (i === 9) {
+            resultsElement += '</ol>'
+        }
+    }
+    return resultsElement;
 }
 
 function generateTopOverallElement() {
@@ -287,7 +322,30 @@ function generateTopOverallElement() {
 }
 
 function generateCitySpecificElement() {
-    return ``;
+    let currentCity = cityList.find(o => o.name === citySpecific);
+    return `<h2>${currentCity.name}:</h2>
+    <ul>
+    <li>Housing: ${currentCity.housing}</li>
+    <li>Cost of Living: ${currentCity.costOfLiving}</li>
+    <li>Travel Connectivity: ${currentCity.travelConnectivity}</li>
+    <li>Commute: ${currentCity.commute}</li>
+    <li>Safety: ${currentCity.safety}</li>
+    <li>Healthcare: ${currentCity.healthcare}</li>
+    <li>Education: ${currentCity.education}</li>
+    <li>Environmental Quality: ${currentCity.environmentalQuality}</li>
+    <li>Taxation: ${currentCity.taxation}</li>
+    <li>Leisure and Culture: ${currentCity.leisureAndCulture}</li>
+    <p>Additional Scores:</p>
+    <li>Startups: ${currentCity.startups}</li>
+    <li>Venture Capital: ${currentCity.ventureCapital}</li>
+    <li>Business Freedom: ${currentCity.businessFreedom}</li>
+    <li>Economy: ${currentCity.economy}</li>
+    <li>Internet Access: ${currentCity.internetAccess}</li>
+    <li>Tolerance: ${currentCity.tolerance}</li>
+    <li>Outdoors: ${currentCity.outdoors}</li>
+    </ul>
+    <button id="js-return-to-match-results">Back to results</button>
+    `;
 }
 
 
@@ -315,28 +373,38 @@ function handleMatchSubmit() {
     })
 }
 
+function handleMatchReturn() {
+    $('body').on('click', "#js-return-to-match-results", function (event) {
+        stage = "matchResults";
+        render();
+    })
+}
+
 function handleTopByCategorySelect() {
     $('body').on('click', '.js-top-by-category', function (event) {
-        stage = 'topByCategory';
+        stage = 'topByCategorySelect';
         render();
     })
 }
 
 function handleTopByCategorySubmit() {
-    $('body').on('click', '#js-top-by-category-submit', function (event) {
+    $('body').on('click', '.category-button', function (event) {
+        category = $(this).attr("id");
         findTopByCategory();
     })
 }
 
 function handleTopOverallSelect() {
     $('body').on('click', '.js-top-overall', function (event) {
-        findTopOverall();
+        category = $(this).attr("id");
+        findTopOverall(category);
     })
 }
 
 function handleCitySelect() {
     $('body').on('click', '.js-city-select', function (event) {
         stage = 'citySpecific';
+        citySpecific = $(this).attr("id");
         render();
     })
 }
@@ -368,7 +436,7 @@ function collectMatchOptions() {
 function calculateScore() {
     console.log('calculating scores');
     let currentCity = {};
-    for (let i = 0; i < cities.length; i++) {        
+    for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
         let score = 0;
         score += (currentCity.housing) * (matchOptions.housing);
@@ -385,30 +453,37 @@ function calculateScore() {
     }
     scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
     stage = 'matchResults';
-    console.log(scoresSorted);
     render();
 }
 
+/*------------------------------------------------------ PROCESS TOP BY CATEGORY --------------------------------------------------------------*/
 
+function findTopByCategory() {
+    console.log('sorting top by category: ' + category)
+    for (let i = 0; i < cities.length; i++) {
+        currentCity = cityList.find(o => o.name === cities[i]);
+        let score = currentCity[category];
+        scores[cities[i]] = score;
+    }
+    console.log(scores);
+    scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
+    console.log(scoresSorted)
+    stage = 'topByCategoryResults';
+    render();
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/
 function runApp() {
     render();
     handleHomeSelect();
     handleMatchPageSelect();
     handleMatchSubmit();
+    handleMatchReturn();
     handleTopByCategorySelect();
     handleTopByCategorySubmit();
     handleTopOverallSelect();
     handleCitySelect();
 }
-
-
-
-/*window.onload = function () {
-    if (sessionStorage.getItem('hasCodeRunBefore') === null) {
-        Your code here.
-        sessionStorage.setItem('hasCodeRunBefore', true);
-    }
-}*/
 
 fetchCityInfo();
 $(runApp);
