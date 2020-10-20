@@ -8,6 +8,7 @@ let scoresSorted = [];
 let stage = 'home';
 let citySpecific = '';
 let category = '';
+let picUrl = '';
 
 /*------------------------------------------------------ FETCH/BUILD CITY INFO --------------------------------------------------------------*/
 
@@ -44,11 +45,28 @@ function buildCityList(city, responseJson) {
     cityList.push(currentCity);
 }
 
+function fetchCityPic() {
+    let currentCity = cityList.find(o => o.name === citySpecific)
+    fetch(`https://api.teleport.org/api/urban_areas/slug:${currentCity.name}/images/`)
+        .then(response => response.json())
+        .then(responseJson => getPicUrl(responseJson));
+}
+
+function getPicUrl(responseJson) {
+    picUrl = responseJson.photos[0].image.web;
+    render();
+}
+
+
 /*------------------------------------------------------ RENDER AND GENERATE HTML --------------------------------------------------------------*/
 
 function render() {
     const currentRender = generateHtml();
     $('main').html(currentRender);
+    if (stage === 'citySpecific') {
+        document.getElementById("citySpecific").style.backgroundImage = `url(${picUrl})`;
+        document.getElementById("citySpecific").style.backgroundSize = "cover";
+    }
     console.log('rendered');
 }
 
@@ -90,7 +108,7 @@ function generateHomeElement() {
 function generateMatchSelectElement() {
     return `<h2>Personalized Match</h2>
     <div class="match-options">
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Housing</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="housing"
@@ -104,7 +122,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Cost of Living</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="cost-of-living"
@@ -120,7 +138,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Travel Connectivity</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="travel-connectivity"
@@ -136,7 +154,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Commute</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="commute"
@@ -150,7 +168,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Safety</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="safety"
@@ -164,7 +182,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Healthcare</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="healthcare"
@@ -178,7 +196,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Education</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="education"
@@ -192,7 +210,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Environmental Quality</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="environmental-quality"
@@ -209,7 +227,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Taxation</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="taxation"
@@ -223,7 +241,7 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <form>
+        <form class="match-option">
             <fieldset>
                 <legend>Leisure and Culture</legend>
                 <div class="radio"><input type="radio" id="extremely-important" name="leisure-and-culture"
@@ -314,13 +332,10 @@ function generateTopByCategoryResultsElement() {
     return resultsElement;
 }
 
-function generateTopOverallElement() {
-    return ``;
-}
-
 function generateCitySpecificElement() {
     let currentCity = cityList.find(o => o.name === citySpecific);
-    return `<h2>${currentCity.name}:</h2>
+    return `<div id="citySpecific">
+    <h2>${currentCity.name}:</h2>
     <ul>
     <li>Housing: ${currentCity.housing}</li>
     <li>Cost of Living: ${currentCity.costOfLiving}</li>
@@ -342,6 +357,7 @@ function generateCitySpecificElement() {
     <li>Outdoors: ${currentCity.outdoors}</li>
     </ul>
     <button id="js-return-to-match-results">Back to results</button>
+    </div>
     `;
 }
 
@@ -401,7 +417,7 @@ function handleCitySelect() {
     $('body').on('click', '.js-city-select', function (event) {
         stage = 'citySpecific';
         citySpecific = $(this).attr("id");
-        render();
+        fetchCityPic();
     })
 }
 
