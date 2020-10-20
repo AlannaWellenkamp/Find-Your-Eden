@@ -17,7 +17,9 @@ function fetchCityInfo() {
         fetch(`https://api.teleport.org/api/urban_areas/slug:${cities[i]}/scores/`)
             .then(response => response.json())
             .then(responseJson => buildCityList(cities[i], responseJson))
-
+            .catch(err => {
+                $('#js-error-message').text(`Something went wrong: ${err.message}`);
+            })
     }
 }
 
@@ -49,7 +51,10 @@ function fetchCityPic() {
     let currentCity = cityList.find(o => o.name === citySpecific)
     fetch(`https://api.teleport.org/api/urban_areas/slug:${currentCity.name}/images/`)
         .then(response => response.json())
-        .then(responseJson => getPicUrl(responseJson));
+        .then(responseJson => getPicUrl(responseJson))
+        .catch(err => {
+            $('#js-error-message').text(`Something went wrong: ${err.message}`);
+        })
 }
 
 function getPicUrl(responseJson) {
@@ -97,7 +102,10 @@ function generateHtml(store) {
 
 function generateHomeElement() {
     return `<h2>Welcome to Find Your Eden</h2>
-    <p>Get a personalized match with one of the top urban centers in the US, view the top results of a given category, or browse the top areas overall.</p>
+    <p>Hi there! Welcome to Find Your Eden, an app designed to help you find an ideal place to live in the United States based on what's important to you. Get personal matches by 
+    rating the importance in each of 10 categories, find the top cities ranked by each of 10 categories, or view the top cities of all 10 categories combined with no weighting based
+    on preference.</p>
+    <p>Find Your Eden uses the <a href="https:www.teleport.org">teleport.org</a> city scores, a simple 0-10 for each category.</p>
     <div id="buttons">
         <button id="personal-match-button" class="js-match-page" value="go to personal match">Personal Match</button>
         <button id="top-by-category-button" class="js-top-by-category" value="go to top by category">Top by Category</button>
@@ -288,7 +296,8 @@ function generateMatchResultsElement() {
     </li>
     </div>`;
         if (i === 9) {
-            resultsElement += '</ol>'
+            resultsElement += `</ol>
+            <button class="js-home">Home</button>`
         }
     }
     return resultsElement;
