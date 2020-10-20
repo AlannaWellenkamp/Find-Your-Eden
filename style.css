@@ -2,6 +2,9 @@
     box-sizing: border-box;
 }
 
+fieldset {
+}
+
 .wrapper {
     width: 95%;
     margin: auto;
@@ -51,6 +54,11 @@ header nav ul li:last-child a {
     
 }
 
+#citySpecific ul {
+    background-color: rgba(0, 0, 0, 0.452);
+    color: white;
+}
+
 h2, p {
     text-align: center;
 }
@@ -63,19 +71,30 @@ form {
     width: 20%;
 }
 
+backgroundI
+
+.city-button {
+    background: none;
+    border: none;
+}
+
+.city-result {
+}
+
 .match-options {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    padding: 0;
-    border: red 1px dashed;
+    flex-direction: column;  
 }
 
 .match-options form {
     padding: 10px;
+    display: inline-flex;
+    margin: 0 100px 0 0;
 }
+
+
 
 
   
@@ -102,6 +121,10 @@ form {
 
     .match-options {
         flex-flow: row wrap;
+    }
+
+    .match-options form {
+        margin: 0;
     }
   
   }
