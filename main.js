@@ -280,7 +280,7 @@ function generateMatchResultsElement() {
             }
         }
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
-        <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-',' ')}</button>
+        <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-', ' ')}</button>
         <ul>
             <li>Housing: ${currentCity.housing}</li>
             <li>Cost of Living: ${currentCity.costOfLiving}</li>
@@ -328,14 +328,15 @@ function generateTopByCategoryResultsElement() {
             }
         }
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
-        <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-',' ')}</button>
+        <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-', ' ')}</button>
         <ul>
             <li>${category}: ${currentCity[category]}</li>
         </ul>
     </li>
     </div>`;
         if (i === 9) {
-            resultsElement += '</ol>'
+            resultsElement += `</ol>
+        <button class="js-home">Home</button>`
         }
     }
     return resultsElement;
@@ -344,7 +345,7 @@ function generateTopByCategoryResultsElement() {
 function generateCitySpecificElement() {
     let currentCity = cityList.find(o => o.name === citySpecific);
     return `<div id="citySpecific">
-    <h2 class="capitalize">${(currentCity.name).replace('-',' ')}:</h2>
+    <h2 class="capitalize">${(currentCity.name).replace('-', ' ')}:</h2>
     <ul>
     <li>Housing: ${currentCity.housing}</li>
     <li>Cost of Living: ${currentCity.costOfLiving}</li>
@@ -366,6 +367,7 @@ function generateCitySpecificElement() {
     <li>Outdoors: ${currentCity.outdoors}</li>
     </ul>
     <button id="js-return-to-match-results">Back to results</button>
+    <button class="js-home">Home</button>
     </div>
     `;
 }
