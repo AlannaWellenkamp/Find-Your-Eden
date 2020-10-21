@@ -9,6 +9,7 @@ let stage = 'home';
 let citySpecific = '';
 let category = '';
 let picUrl = '';
+let returnTo = '';
 
 /*------------------------------------------------------ FETCH/BUILD CITY INFO --------------------------------------------------------------*/
 
@@ -270,6 +271,7 @@ function generateMatchSelectElement() {
 }
 
 function generateMatchResultsElement() {
+    returnTo = 'match-results';
     let resultsElement = '<h2>Results:</h2><ol>';
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
@@ -318,6 +320,7 @@ function generateTopByCategoryElement() {
 }
 
 function generateTopByCategoryResultsElement() {
+    returnTo = 'top-by-category-results';
     let resultsElement = '<h2>Results:</h2><ol>';
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
@@ -366,7 +369,7 @@ function generateCitySpecificElement() {
     <li>Tolerance: ${currentCity.tolerance}</li>
     <li>Outdoors: ${currentCity.outdoors}</li>
     </ul>
-    <button id="js-return-to-match-results">Back to results</button>
+    <button id="js-return-to-${returnTo}">Back to results</button>
     <button class="js-home">Home</button>
     </div>
     `;
@@ -415,6 +418,13 @@ function handleTopByCategorySubmit() {
     $('body').on('click', '.category-button', function (event) {
         category = $(this).attr("id");
         findTopByCategory();
+    })
+}
+
+function handleTopByCategoryReturn() {
+    $('body').on('click', "#js-return-to-top-by-category-results", function (event) {
+        stage = "topByCategoryResults";
+        render();
     })
 }
 
@@ -523,6 +533,7 @@ function runApp() {
     handleMatchReturn();
     handleTopByCategorySelect();
     handleTopByCategorySubmit();
+    handleTopByCategoryReturn();
     handleTopOverallSelect();
     handleCitySelect();
 }
