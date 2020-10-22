@@ -179,8 +179,7 @@ ul .category-name {
 
 .result-list {
     margin: auto;
-    width: min-content;
-    min-width: 524px;
+    width: max-content;
 }
 
 .city-result {
