@@ -358,7 +358,7 @@ function generateCitySpecificElement() {
     let currentCity = cityList.find(o => o.name === citySpecific);
     return `<div id="citySpecific"><div class="shade">
     <h2 class="bold capitalize city-specific-name">${(currentCity.name).replace('-', ' ')}:</h2>
-    <ul class="city-specific-info">
+    <class ="min-width"><ul class="city-specific-info">
     <li><span class="category-name">Housing: </span><span class="rating">${currentCity.housing}</span></li>
     <li><span class="category-name">Cost of Living: </span><span class="rating">${currentCity.costOfLiving}</span></li>
     <li><span class="category-name">Travel Connectivity: </span><span class="rating">${currentCity.travelConnectivity}</span></li>
@@ -380,7 +380,7 @@ function generateCitySpecificElement() {
     </ul>
     <div class="center-button"><button id="js-return-to-${returnTo}" class="show-button">Back to results</button>
     <button class="js-home show-button">Home</button></div>
-    </div></div>
+    </div></div></div>
     `;
 }
 
@@ -467,7 +467,6 @@ function collectMatchOptions() {
     matchOptions['taxation'] = $("input[type='radio'][name='taxation']:checked").val();
     matchOptions['leisureAndCulture'] = $("input[type='radio'][name='leisure-and-culture']:checked").val();
     if (matchOptions.housing && matchOptions.costOfLiving && matchOptions.travelConnectivity && matchOptions.commute && matchOptions.safety && matchOptions.healthcare && matchOptions.education && matchOptions.environmentalQuality && matchOptions.taxation && matchOptions.leisureAndCulture) {
-        console.log(matchOptions);
         calculateScore();
     }
     else {
@@ -498,7 +497,6 @@ function calculateScore() {
 }
 
 function findTopByCategory() {
-    console.log('sorting top by category: ' + category)
     for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
         let score = currentCity[category];
@@ -517,9 +515,7 @@ function findTopByCategory() {
     if (categorySelected === 'leisureAndCulture') {
         categorySelected = 'Leisure And Culture';
     }
-    console.log(scores);
     scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
-    console.log(scoresSorted)
     stage = 'topByCategoryResults';
     render();
 }
