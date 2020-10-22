@@ -83,6 +83,10 @@ body h2, p, li, button, form {
 	text-decoration:none;
 }
 
+button {
+    margin-bottom: 7px;
+}
+
 .category-button {
     width: 50%;
 }
@@ -104,37 +108,70 @@ body h2, p, li, button, form {
     text-align: center;
 }
 
-legend, .city-button {
+legend, .city-button, .bold {
     font-weight: bold;
 }
 
 ul {
     list-style: none;
-}
-/*------------------------------------------------ TESTING --------------------------------------------------------------------*/
-
-
-.category-name{
-    width: 300px;
-    float: left;
+    display: table;
 }
 
+ul .category-name {
+    text-align: left;
+}
 
-/*------------------------------------------------ TESTING --------------------------------------------------------------------*/
+.center-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.rating {
+    float: right;
+    margin-left: 4em;
+}
+
+
+
+
+.city-result .city-button {
+    text-align: left;
+}
+
 ul li {
     margin: 3px 0;
+}
+
+.result-list {
+    margin:auto;
+    width: 70%;
 }
 
 .city-result {
     margin-bottom: 15px;
 }
 
-SOMETHINGELSE button {
-    border: none;
-    background: none;
+.city-specific-info {
+    margin: auto;
+    width: 70%;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px;
+}
+
+.city-specific-name {
+    background-color: rgba(0, 0, 0, 0.75);
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding: 5px;
 }
 
 
+
+.top-category-results {
+    margin: auto;
+    width: 70%;
+}
 
 
 .shade {
@@ -156,6 +193,11 @@ form {
 .city-button {
     background: none;
     border: none;
+}
+
+#city-specific ul {
+    width: 70%;'
+    margin: auto;
 }
 
 .match-options {

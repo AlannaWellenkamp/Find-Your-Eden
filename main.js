@@ -73,8 +73,7 @@ function render() {
     if (stage === 'citySpecific') {
         document.getElementById("citySpecific").style.backgroundImage = `url(${picUrl})`;
         document.getElementById("citySpecific").style.backgroundSize = "cover";
-    }
-    console.log('rendered');
+    };
 }
 
 
@@ -269,6 +268,7 @@ function generateMatchSelectElement() {
             </fieldset>
         </form>
         <input type="submit" id="js-match-submit" class="show-button">
+        <div class="center-button"><button class="js-home show-button">Home</button></div>
     </div>`;
 }
 
@@ -276,7 +276,7 @@ function generateMatchResultsElement() {
     returnTo = 'match-results';
     let resultsElement = `<h2>Results:</h2>
     <p>Click on a city name to get additional information.</p>
-    <ol>`;
+    <ol class="result-list">`;
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
@@ -288,22 +288,22 @@ function generateMatchResultsElement() {
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
         <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-', ' ')}</button>
         <ul>
-            <li>Housing: <span class="rating">${currentCity.housing}</span></li>
-            <li>Cost of Living: ${currentCity.costOfLiving}</li>
-            <li>Travel Connectivity: ${currentCity.travelConnectivity}</li>
-            <li>Commute: ${currentCity.commute}</li>
-            <li>Safety: ${currentCity.safety}</li>
-            <li>Healthcare: ${currentCity.healthcare}</li>
-            <li>Education: ${currentCity.education}</li>
-            <li>Environmental Quality: ${currentCity.environmentalQuality}</li>
-            <li>Taxation: ${currentCity.taxation}</li>
-            <li>Leisure and Culture: ${currentCity.leisureAndCulture}</li>
+            <li><span class="category-name">Housing: </span><span class="rating">${currentCity.housing}</span></li>
+            <li><span class="category-name">Cost of Living: </span><span class="rating">${currentCity.costOfLiving}</span></li>
+            <li><span class="category-name">Travel Connectivity: </span><span class="rating">${currentCity.travelConnectivity}</span></li>
+            <li><span class="category-name">Commute: </span><span class="rating">${currentCity.commute}</span></li>
+            <li><span class="category-name">Safety: </span><span class="rating">${currentCity.safety}</span></li>
+            <li><span class="category-name">Healthcare: </span><span class="rating">${currentCity.healthcare}</span></li>
+            <li><span class="category-name">Education: </span><span class="rating">${currentCity.education}</span></li>
+            <li><span class="category-name">Environmental Quality: </span><span class="rating">${currentCity.environmentalQuality}</span></li>
+            <li><span class="category-name">Taxation: </span><span class="rating">${currentCity.taxation}</span></li>
+            <li><span class="category-name">Leisure and Culture: </span><span class="rating">${currentCity.leisureAndCulture}</span></li>
         </ul>
     </li>
     </div>`;
         if (i === 9) {
             resultsElement += `</ol>
-            <button class="js-home show-button">Home</button>`
+            <div class="center-button"><button class="js-home show-button">Home</button></div></div>`
         }
     }
     return resultsElement;
@@ -325,12 +325,14 @@ function generateTopByCategoryElement() {
         <button id="taxation" value="go to taxation" class="category-button">Taxation</button>
         <button id="leisureAndCulture" value="go to leisure-and-culture" class="category-button">Leisure and
             Culture</button>
+            <div class="center-button"><button class="js-home show-button">Home</button></div>
     </div>`;
 }
 
 function generateTopByCategoryResultsElement() {
     returnTo = 'top-by-category-results';
-    let resultsElement = `<h2>Results for <span class="capitalize">${categorySelected}</span>:</h2><p>Click on a city name to get additional information.</p><ol>`;
+    let resultsElement = `<h2>Results for <span class="capitalize">${categorySelected}</span>:</h2><p>Click on a city name to get additional information.</p>
+    <div class="top-category-results"><ol>`;
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
@@ -341,14 +343,12 @@ function generateTopByCategoryResultsElement() {
         }
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
         <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-', ' ')}</button>
-        <ul>
-            <li>${currentCity[category]}</li>
-        </ul>
+        <span class="rating">${currentCity[category]}</span>
     </li>
     </div>`;
         if (i === 9) {
-            resultsElement += `</ol>
-        <button class="js-home show-button">Home</button>`
+            resultsElement += `</ol></div>
+            <div class="center-button"><button class="js-home show-button">Home</button></div>`
         }
     }
     return resultsElement;
@@ -357,29 +357,29 @@ function generateTopByCategoryResultsElement() {
 function generateCitySpecificElement() {
     let currentCity = cityList.find(o => o.name === citySpecific);
     return `<div id="citySpecific"><div class="shade">
-    <h2 class="capitalize">${(currentCity.name).replace('-', ' ')}:</h2>
-    <ul>
-    <li>Housing: ${currentCity.housing}</li>
-    <li>Cost of Living: ${currentCity.costOfLiving}</li>
-    <li>Travel Connectivity: ${currentCity.travelConnectivity}</li>
-    <li>Commute: ${currentCity.commute}</li>
-    <li>Safety: ${currentCity.safety}</li>
-    <li>Healthcare: ${currentCity.healthcare}</li>
-    <li>Education: ${currentCity.education}</li>
-    <li>Environmental Quality: ${currentCity.environmentalQuality}</li>
-    <li>Taxation: ${currentCity.taxation}</li>
-    <li>Leisure and Culture: ${currentCity.leisureAndCulture}</li>
-    <p>Additional Information:</p>
-    <li>Startups: ${currentCity.startups}</li>
-    <li>Venture Capital: ${currentCity.ventureCapital}</li>
-    <li>Business Freedom: ${currentCity.businessFreedom}</li>
-    <li>Economy: ${currentCity.economy}</li>
-    <li>Internet Access: ${currentCity.internetAccess}</li>
-    <li>Tolerance: ${currentCity.tolerance}</li>
-    <li>Outdoors: ${currentCity.outdoors}</li>
+    <h2 class="bold capitalize city-specific-name">${(currentCity.name).replace('-', ' ')}:</h2>
+    <ul class="city-specific-info">
+    <li><span class="category-name">Housing: </span><span class="rating">${currentCity.housing}</span></li>
+    <li><span class="category-name">Cost of Living: </span><span class="rating">${currentCity.costOfLiving}</span></li>
+    <li><span class="category-name">Travel Connectivity: </span><span class="rating">${currentCity.travelConnectivity}</span></li>
+    <li><span class="category-name">Commute: </span><span class="rating">${currentCity.commute}</span></li>
+    <li><span class="category-name">Safety: </span><span class="rating">${currentCity.safety}</span></li>
+    <li><span class="category-name">Healthcare: </span><span class="rating">${currentCity.healthcare}</span></li>
+    <li><span class="category-name">Education: </span><span class="rating">${currentCity.education}</span></li>
+    <li><span class="category-name">Environmental Quality: </span><span class="rating">${currentCity.environmentalQuality}</span></li>
+    <li><span class="category-name">Taxation: </span><span class="rating">${currentCity.taxation}</span></li>
+    <li><span class="category-name">Leisure and Culture: </span><span class="rating">${currentCity.leisureAndCulture}</span></li>
+    <p class="bold">Additional Information:</p>
+    <li><span class="category-name">Startups: </span><span class="rating">${currentCity.startups}</span></li>
+    <li><span class="category-name">Venture Capital: </span><span class="rating">${currentCity.ventureCapital}</span></li>
+    <li><span class="category-name">Business Freedom: </span><span class="rating">${currentCity.businessFreedom}</span></li>
+    <li><span class="category-name">Economy: </span><span class="rating">${currentCity.economy}</span></li>
+    <li><span class="category-name">Internet Access: </span><span class="rating">${currentCity.internetAccess}</span></li>
+    <li><span class="category-name">Tolerance: </span><span class="rating">${currentCity.tolerance}</span></li>
+    <li><span class="category-name">Outdoors: </span><span class="rating">${currentCity.outdoors}</span></li>
     </ul>
-    <button id="js-return-to-${returnTo}" class="show-button">Back to results</button>
-    <button class="js-home show-button">Home</button>
+    <div class="center-button"><button id="js-return-to-${returnTo}" class="show-button">Back to results</button>
+    <button class="js-home show-button">Home</button></div>
     </div></div>
     `;
 }
