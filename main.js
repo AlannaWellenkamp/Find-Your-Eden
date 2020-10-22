@@ -276,7 +276,7 @@ function generateMatchResultsElement() {
     returnTo = 'match-results';
     let resultsElement = `<h2>Results:</h2>
     <p>Click on a city name to get additional information.</p>
-    <ol class="result-list">`;
+    <div class="center"><ol class="result-list">`;
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
@@ -303,7 +303,7 @@ function generateMatchResultsElement() {
     </div>`;
         if (i === 9) {
             resultsElement += `</ol>
-            <div class="center-button"><button class="js-home show-button">Home</button></div></div>`
+            <div class="center-button"><button class="js-home show-button">Home</button></div></div></div>`
         }
     }
     return resultsElement;

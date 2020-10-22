@@ -52,7 +52,8 @@ a:active {
     color: #7BACDD ;
 }
 
-/*------------------------------------------------ STANDARD STYLING --------------------------------------------------------------------*/
+/*------------------------------------------------ GENERAL --------------------------------------------------------------------*/
+
 h1, h2, p, li, button, input, form {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -97,6 +98,21 @@ button {
     margin: 15px;
 }
 
+.center-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+h2, p {
+    text-align: center;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+/*------------------------------------------------ TOP BY CATEGORY SELECT --------------------------------------------------------------------*/
+
 .top-by-category-options {
     display: flex;
     flex-direction: column;
@@ -108,8 +124,35 @@ button {
     text-align: center;
 }
 
+/*------------------------------------------------ MATCHING OPTION SELECT --------------------------------------------------------------------*/
+
 legend, .city-button, .bold {
     font-weight: bold;
+}
+
+.radio {
+    white-space: nowrap;
+}
+
+.match-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  
+}
+
+.match-options form {
+    width: 20%;
+    padding: 10px;
+    display: inline-flex;
+    margin: 0 100px 0 0;
+}
+
+/*----------------------------------------------------------- RESULTS --------------------------------------------------------------------*/
+
+.top-category-results {
+    margin: auto;
+    width: 70%;
 }
 
 ul {
@@ -117,13 +160,12 @@ ul {
     display: table;
 }
 
-ul .category-name {
-    text-align: left;
+ul li {
+    margin: 3px 0;
 }
 
-.center-button {
-    text-align: center;
-    margin-top: 10px;
+ul .category-name {
+    text-align: left;
 }
 
 .rating {
@@ -131,25 +173,26 @@ ul .category-name {
     margin-left: 4em;
 }
 
-
-
-
 .city-result .city-button {
     text-align: left;
 }
 
-ul li {
-    margin: 3px 0;
-}
-
 .result-list {
-    margin:auto;
-    width: 70%;
+    margin: auto;
+    width: min-content;
+    min-width: 524px;
 }
 
 .city-result {
     margin-bottom: 15px;
 }
+
+.city-button {
+    background: none;
+    border: none;
+}
+
+/*----------------------------------------------------------- CITY SPECIFIC PAGE --------------------------------------------------------------------*/
 
 .city-specific-info {
     margin: auto;
@@ -166,56 +209,17 @@ ul li {
     padding: 5px;
 }
 
-
-
-.top-category-results {
-    margin: auto;
-    width: 70%;
-}
-
-
 .shade {
     background-color: rgba(0, 0, 0, 0.500);
 }
 
-h2, p {
-    text-align: center;
-}
-
-.radio {
-    white-space: nowrap;
-}
-
-form {
-    width: 20%;
-}
-
-.city-button {
-    background: none;
-    border: none;
-}
-
 #city-specific ul {
-    width: 70%;'
+    width: 70%;
     margin: auto;
 }
 
-.match-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;  
-}
 
-.match-options form {
-    padding: 10px;
-    display: inline-flex;
-    margin: 0 100px 0 0;
-}
 
-.capitalize {
-    text-transform: capitalize;
-}
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/  
