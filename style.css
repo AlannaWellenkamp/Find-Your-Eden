@@ -152,7 +152,7 @@ legend, .city-button, .bold {
 
 .top-category-results {
     margin: auto;
-    width: 70%;
+    width: max-content;
 }
 
 ul {
@@ -170,7 +170,7 @@ ul .category-name {
 
 .rating {
     float: right;
-    margin-left: 4em;
+    margin-left: 2em;
 }
 
 .city-result .city-button {
@@ -195,7 +195,6 @@ ul .category-name {
 
 .city-specific-info {
     margin: auto;
-    width: 70%;
     background-color: rgba(0, 0, 0, 0.75);
     padding: 10px;
 }
@@ -212,11 +211,9 @@ ul .category-name {
     background-color: rgba(0, 0, 0, 0.500);
 }
 
-#city-specific ul {
-    width: 70%;
-    margin: auto;
+.min-width {
+    width: max-content;
 }
-
 
 
 
