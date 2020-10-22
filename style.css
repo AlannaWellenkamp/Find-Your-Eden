@@ -2,28 +2,20 @@
     box-sizing: border-box;
 }
 
-fieldset {
-}
+/*----------------------------------------------- HEADER AND NAV BAR ---------------------------------------------------------------------*/
 
-.wrapper {
-    width: 95%;
-    margin: auto;
-}
-
-body {
-    margin: 0;
-}
-  
 header {
     margin-bottom: 40px;
+    background-color: #2F1515;
+    color: #d5d5d5;
 }
   
 header h1 {
     text-align: center;
     margin: 0;
     padding-top: 20px;
-  }
-  
+}
+
 header nav {
     display: flex;
     justify-content: center;
@@ -44,19 +36,109 @@ header nav ul li:last-child a {
     margin-right: 0;
 }
 
+a:link {
+    color: #b2cce5;
+}
+
+a:visited {
+    color: #95A5A6 ;
+}
+
+a:hover {
+    color: #91A6BA ;
+}
+
+a:active {
+    color: #7BACDD ;
+}
+
+/*------------------------------------------------ STANDARD STYLING --------------------------------------------------------------------*/
+h1, h2, p, li, button, input, form {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #382929;
+}
+  
+.wrapper {
+    width: 95%;
+    margin: auto;
+}
+
+body h2, p, li, button, form {
+    color: #d5d5d5;
+}
+
+.show-button, .category-button {
+	box-shadow: 0px 10px 14px -7px #604A4A;
+	background-color:#604A4A;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-weight:bold;
+	padding:8px 16px;
+	text-decoration:none;
+}
+
+.category-button {
+    width: 50%;
+}
+
 #buttons {
     display: flex;
     justify-content: space-around;
-}
-
-#buttons button {
     margin: 15px;
-    
 }
 
-#citySpecific ul {
-    background-color: rgba(0, 0, 0, 0.452);
-    color: white;
+.top-by-category-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-button {
+    text-align: center;
+}
+
+legend, .city-button {
+    font-weight: bold;
+}
+
+ul {
+    list-style: none;
+}
+/*------------------------------------------------ TESTING --------------------------------------------------------------------*/
+
+
+.category-name{
+    width: 300px;
+    float: left;
+}
+
+
+/*------------------------------------------------ TESTING --------------------------------------------------------------------*/
+ul li {
+    margin: 3px 0;
+}
+
+.city-result {
+    margin-bottom: 15px;
+}
+
+SOMETHINGELSE button {
+    border: none;
+    background: none;
+}
+
+
+
+
+.shade {
+    background-color: rgba(0, 0, 0, 0.500);
 }
 
 h2, p {
@@ -71,14 +153,9 @@ form {
     width: 20%;
 }
 
-backgroundI
-
 .city-button {
     background: none;
     border: none;
-}
-
-.city-result {
 }
 
 .match-options {
@@ -99,7 +176,7 @@ backgroundI
 }
 
 
-  
+/*--------------------------------------------------------------------------------------------------------------------*/  
 @media all and (min-width: 600px) {
     .wrapper{
         width: 80%;

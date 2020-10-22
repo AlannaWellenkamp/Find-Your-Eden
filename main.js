@@ -10,6 +10,7 @@ let citySpecific = '';
 let category = '';
 let picUrl = '';
 let returnTo = '';
+let categorySelected = '';
 
 /*------------------------------------------------------ FETCH/BUILD CITY INFO --------------------------------------------------------------*/
 
@@ -102,20 +103,21 @@ function generateHtml(store) {
 /*------------------------------------------------------ SPECIFIC HTMLS --------------------------------------------------------------*/
 
 function generateHomeElement() {
-    return `<h2>Welcome to Find Your Eden</h2>
+    return `<div class="home"><h2>Welcome to Find Your Eden</h2>
     <p>Hi there! Welcome to Find Your Eden, an app designed to help you find an ideal place to live in the United States based on what's important to you. Get personal matches by 
     rating the importance in each of 10 categories, find the top cities ranked by each of 10 categories, or view the top cities of all 10 categories combined with no weighting based
     on preference.</p>
     <p>Find Your Eden uses the <a href="https:www.teleport.org">teleport.org</a> city scores, a simple 0-10 for each category.</p>
     <div id="buttons">
-        <button id="personal-match-button" class="js-match-page" value="go to personal match">Personal Match</button>
-        <button id="top-by-category-button" class="js-top-by-category" value="go to top by category">Top by Category</button>
-        <button id="top-overall-button" class="js-top-overall" value="go to top by overall score">Top by Overall Score</button>
-    </div>`;
+        <button id="personal-match-button" class="js-match-page show-button" value="go to personal match">Personal Match</button>
+        <button id="top-by-category-button" class="js-top-by-category show-button" value="go to top by category">Top by Category</button>
+        <button id="top-overall-button" class="js-top-overall show-button" value="go to top by overall score">Top by Overall Score</button>
+    </div></div>`;
 }
 
 function generateMatchSelectElement() {
     return `<h2>Personalized Match</h2>
+    <p>Please select how important each category is to you.</p>
     <div class="match-options">
         <form class="match-option">
             <fieldset>
@@ -266,13 +268,15 @@ function generateMatchSelectElement() {
                     <label for="not-important">Not Important</label></div>
             </fieldset>
         </form>
-        <input type="submit" id="js-match-submit">
+        <input type="submit" id="js-match-submit" class="show-button">
     </div>`;
 }
 
 function generateMatchResultsElement() {
     returnTo = 'match-results';
-    let resultsElement = '<h2>Results:</h2><ol>';
+    let resultsElement = `<h2>Results:</h2>
+    <p>Click on a city name to get additional information.</p>
+    <ol>`;
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
@@ -284,7 +288,7 @@ function generateMatchResultsElement() {
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
         <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-', ' ')}</button>
         <ul>
-            <li>Housing: ${currentCity.housing}</li>
+            <li>Housing: <span class="rating">${currentCity.housing}</span></li>
             <li>Cost of Living: ${currentCity.costOfLiving}</li>
             <li>Travel Connectivity: ${currentCity.travelConnectivity}</li>
             <li>Commute: ${currentCity.commute}</li>
@@ -299,29 +303,34 @@ function generateMatchResultsElement() {
     </div>`;
         if (i === 9) {
             resultsElement += `</ol>
-            <button class="js-home">Home</button>`
+            <button class="js-home show-button">Home</button>`
         }
     }
     return resultsElement;
 }
 
 function generateTopByCategoryElement() {
-    return ` <h2>Select a category to see the top results</h2>
-    <button id="housing" value="go to housing" class="category-button">Housing</button>
-    <button id="costOfLiving" value="go to cost of living" class="category-button">Cost of Living</button>
-    <button id="travelConnectivity" value="go to travel connectivity" class="category-button">Travel Connectivity</button>
-    <button id="commute" value="go to commute" class="category-button">Commute</button>
-    <button id="safety" value="go to safety" class="category-button">Safety</button>
-    <button id="healthcare" value="go to healthcare" class="category-button">Healthcare</button>
-    <button id="education" value="go to education" class="category-button">Education</button>
-    <button id="environmentalQuality" value="go to environmental quality" class="category-button">Environmental Quality</button>
-    <button id="taxation" value="go to taxation" class="category-button">Taxation</button>
-    <button id="leisureAndCulture" value="go to leisure-and-culture" class="category-button">Leisure and Culture</button>`;
+    return `<h2>Select a category to see the top results</h2>
+    <div class="top-by-category-options">
+        <button id="housing" value="go to housing" class="category-button">Housing</button>
+        <button id="costOfLiving" value="go to cost of living" class="category-button">Cost of Living</button>
+        <button id="travelConnectivity" value="go to travel connectivity" class="category-button">Travel
+            Connectivity</button>
+        <button id="commute" value="go to commute" class="category-button">Commute</button>
+        <button id="safety" value="go to safety" class="category-button">Safety</button>
+        <button id="healthcare" value="go to healthcare" class="category-button">Healthcare</button>
+        <button id="education" value="go to education" class="category-button">Education</button>
+        <button id="environmentalQuality" value="go to environmental quality" class="category-button">Environmental
+            Quality</button>
+        <button id="taxation" value="go to taxation" class="category-button">Taxation</button>
+        <button id="leisureAndCulture" value="go to leisure-and-culture" class="category-button">Leisure and
+            Culture</button>
+    </div>`;
 }
 
 function generateTopByCategoryResultsElement() {
     returnTo = 'top-by-category-results';
-    let resultsElement = '<h2>Results:</h2><ol>';
+    let resultsElement = `<h2>Results for <span class="capitalize">${categorySelected}</span>:</h2><p>Click on a city name to get additional information.</p><ol>`;
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
@@ -333,13 +342,13 @@ function generateTopByCategoryResultsElement() {
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
         <li><button class="city-button js-city-select capitalize" id="${currentCity.name}">${(currentCity.name).replace('-', ' ')}</button>
         <ul>
-            <li>${category}: ${currentCity[category]}</li>
+            <li>${currentCity[category]}</li>
         </ul>
     </li>
     </div>`;
         if (i === 9) {
             resultsElement += `</ol>
-        <button class="js-home">Home</button>`
+        <button class="js-home show-button">Home</button>`
         }
     }
     return resultsElement;
@@ -347,7 +356,7 @@ function generateTopByCategoryResultsElement() {
 
 function generateCitySpecificElement() {
     let currentCity = cityList.find(o => o.name === citySpecific);
-    return `<div id="citySpecific">
+    return `<div id="citySpecific"><div class="shade">
     <h2 class="capitalize">${(currentCity.name).replace('-', ' ')}:</h2>
     <ul>
     <li>Housing: ${currentCity.housing}</li>
@@ -369,9 +378,9 @@ function generateCitySpecificElement() {
     <li>Tolerance: ${currentCity.tolerance}</li>
     <li>Outdoors: ${currentCity.outdoors}</li>
     </ul>
-    <button id="js-return-to-${returnTo}">Back to results</button>
-    <button class="js-home">Home</button>
-    </div>
+    <button id="js-return-to-${returnTo}" class="show-button">Back to results</button>
+    <button class="js-home show-button">Home</button>
+    </div></div>
     `;
 }
 
@@ -494,6 +503,19 @@ function findTopByCategory() {
         currentCity = cityList.find(o => o.name === cities[i]);
         let score = currentCity[category];
         scores[cities[i]] = score;
+    }
+    categorySelected = category;
+    if (categorySelected === 'costOfLiving') {
+        categorySelected = 'Cost Of Living';
+    }
+    if (categorySelected === 'travelConnectivity') {
+        categorySelected = 'Travel Connectivity';
+    }
+    if (categorySelected === 'environmentalQuality') {
+        categorySelected = 'Environmental Quality';
+    }
+    if (categorySelected === 'leisureAndCulture') {
+        categorySelected = 'Leisure And Culture';
     }
     console.log(scores);
     scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
