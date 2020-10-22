@@ -222,6 +222,16 @@ ul .category-name {
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/  
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+    /* Styles */
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 320px) {
+    /* Styles */
+}
+    
 @media all and (min-width: 600px) {
     .wrapper{
         width: 80%;
