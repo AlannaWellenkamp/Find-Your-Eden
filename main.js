@@ -526,7 +526,6 @@ function findTopOverall() {
     scoresSorted = [];
     for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
-        console.log(currentCity)
         let score = 0;
         score += parseFloat(currentCity.housing);
         score += parseFloat(currentCity.costOfLiving);
