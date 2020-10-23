@@ -137,6 +137,8 @@ h2, p {
     text-align: center;
 }
 
+
+
 /*------------------------------------------------ MATCHING OPTION SELECT --------------------------------------------------------------------*/
 
 legend, .city-button, .bold {
@@ -154,11 +156,15 @@ legend, .city-button, .bold {
     flex-direction: column;  
 }
 
-.match-options form {
+.match-options fieldset {
+    margin: 10px;
     width: 20%;
     padding: 10px;
-    display: inline-flex;
-    margin: 0 100px 0 0;
+}
+
+#js-match-submit {
+    margin-top: 7px;
+    text-align: center;
 }
 
 /*----------------------------------------------------------- RESULTS --------------------------------------------------------------------*/
@@ -168,9 +174,12 @@ legend, .city-button, .bold {
     width: max-content;
 }
 
+ol li {
+    margin-bottom: 15px;
+}
+
 ul {
     list-style: none;
-    display: table;
 }
 
 ul li {
@@ -211,6 +220,7 @@ ul .category-name {
     margin: auto;
     background-color: rgba(0, 0, 0, 0.75);
     padding: 10px;
+    width: max-content;
 }
 
 .city-specific-name {
@@ -225,9 +235,7 @@ ul .category-name {
     background-color: rgba(0, 0, 0, 0.500);
 }
 
-.min-width {
-    width: max-content;
-}
+
 
 
 
@@ -246,6 +254,11 @@ ul .category-name {
     .wrapper {
         width: 85%;
     }
+
+    p, li, button, input, form {
+        font-size: 18px;
+    }
+
     .show-button, .category-button {                    
         padding:8px 16px;
     }
@@ -258,6 +271,11 @@ ul .category-name {
     .wrapper {
         width: 80%;
     }
+
+    p, li, button, input, form {
+        font-size: 18px;
+    }
+
     .show-button, .category-button {                    
         padding:8px 16px;
     }
@@ -268,8 +286,43 @@ ul .category-name {
     
 @media all and (min-width: 1024px) {
     .wrapper{
+        width: 75%;
+    }
+
+    h2, p {
+        text-align: left;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    p, li, button, input, form {
+        font-size: 20px;
+    }
+
+    .top-category-results {
+        margin: 0;
+    }
+
+    .home, .top-by-category-options, .result-list {
         width: 50%;
     }
+
+    .result-list {
+        float: left;
+        width: fit-content;
+    }
+
+    .center-button {   
+        text-align: center;
+        width: 50%;
+    }
+
+    .hide-desktop {
+        display: none;
+    }
+
 
     header {
       display: flex;
@@ -297,6 +350,10 @@ ul .category-name {
 
     .show-button, .category-button {                    
         padding:8px 16px;
+    }
+
+    .city-specific-info, .city-specific-name{
+        margin: 0 0 20px 200px;
     }
   
   }
