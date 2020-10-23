@@ -58,7 +58,7 @@ a:active {
 /*------------------------------------------------ GENERAL --------------------------------------------------------------------*/
 
 h1, h2, p, li, button, input, form {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Nunito', 'Arial', 'Helvetica', 'sans-serif';
 }
 
 p, li, button, input, form {
@@ -121,6 +121,7 @@ h2, p {
 .home p {
     text-align: left;
     letter-spacing: 1px;
+    width: 95%;
 }
 
 /*------------------------------------------------ TOP BY CATEGORY SELECT --------------------------------------------------------------------*/
