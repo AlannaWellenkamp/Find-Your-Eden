@@ -357,7 +357,7 @@ function generateCitySpecificElement() {
     let currentCity = cityList.find(o => o.name === citySpecific);
     return `<div id="citySpecific"><div class="shade">
     <h2 class="bold capitalize city-specific-name">${(currentCity.name).replace('-', ' ')}:</h2>
-    <class ="min-width"><ul class="city-specific-info">
+    <ul class="city-specific-info">
     <li><span class="category-name">Housing: </span><span class="rating">${currentCity.housing}</span></li>
     <li><span class="category-name">Cost of Living: </span><span class="rating">${currentCity.costOfLiving}</span></li>
     <li><span class="category-name">Travel Connectivity: </span><span class="rating">${currentCity.travelConnectivity}</span></li>
