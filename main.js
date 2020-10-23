@@ -74,6 +74,7 @@ function render() {
         document.getElementById("citySpecific").style.backgroundImage = `url(${picUrl})`;
         document.getElementById("citySpecific").style.backgroundSize = "cover";
     };
+    window.scrollTo(0, 0);
 }
 
 
