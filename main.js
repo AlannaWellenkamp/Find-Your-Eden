@@ -102,7 +102,7 @@ function generateHtml(store) {
 /*------------------------------------------------------ SPECIFIC HTMLS --------------------------------------------------------------*/
 
 function generateHomeElement() {
-    return `<div class="home"><h2>Welcome to Find Your Eden</h2>
+    return `<div class="home">
     <p>Hi there! Welcome to Find Your Eden, an app designed to help you find an ideal place to live in the United States based on what's important to you. Get personal matches by 
     rating the importance in each of 10 categories, find the top cities ranked by each of 10 categories, or view the top cities of all 10 categories combined with no weighting based
     on preference.</p>
@@ -116,7 +116,7 @@ function generateHomeElement() {
 
 function generateMatchSelectElement() {
     return `<h2>Personalized Match</h2>
-    <p>Please select how important each category is to you.</p>
+    <p class="text-center">Please select how important each category is to you.</p>
     <div class="match-options">
         <form class="match-option">
             <fieldset>
@@ -276,13 +276,13 @@ function generateMatchResultsElement() {
     returnTo = 'match-results';
     let resultsElement = `<h2>Results:</h2>
     <p>Click on a city name to get additional information.</p>
-    <div class="center"><ol class="result-list">`;
+    <ol class="result-list">`;
     let currentCity = {};
     for (let i = 0; i < 10; i++) {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
         for (var key of Object.keys(currentCity)) {
             if (typeof currentCity[key] === 'number' && currentCity[key] !== 0) {
-                currentCity[key] = (Math.round(currentCity[key] * 100)) / 100;
+                currentCity[key] = ((Math.round(currentCity[key] * 100)) / 100).toFixed(2);
             }
         }
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
@@ -300,7 +300,7 @@ function generateMatchResultsElement() {
             <li><span class="category-name">Leisure and Culture: </span><span class="rating">${currentCity.leisureAndCulture}</span></li>
         </ul>
     </li>
-    </div>`;
+    `;
         if (i === 9) {
             resultsElement += `</ol>
             <div class="center-button"><button class="js-home show-button">Home</button></div></div></div>`
@@ -338,7 +338,7 @@ function generateTopByCategoryResultsElement() {
         currentCity = cityList.find(o => o.name === scoresSorted[i]);
         for (var key of Object.keys(currentCity)) {
             if (typeof currentCity[key] === 'number' && currentCity[key] !== 0) {
-                currentCity[key] = (Math.round(currentCity[key] * 100)) / 100;
+                currentCity[key] = ((Math.round(currentCity[key] * 100)) / 100).toFixed(2);
             }
         }
         resultsElement += `<div class="city-result" id="${currentCity.name}-result">
