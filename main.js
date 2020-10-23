@@ -266,10 +266,9 @@ function generateMatchSelectElement() {
                         value=0>
                     <label for="not-important">Not Important</label></div>
             </fieldset>
-        </form>
-        <input type="submit" id="js-match-submit" class="show-button">
-        <div class="center-button"><button class="js-home show-button">Home</button></div>
-    </div>`;
+        </form></div>
+        <div class="center-button match-button"><input type="submit" id="js-match-submit" class="show-button"></div>
+    `;
 }
 
 function generateMatchResultsElement() {
@@ -299,11 +298,11 @@ function generateMatchResultsElement() {
             <li><span class="category-name">Taxation: </span><span class="rating">${currentCity.taxation}</span></li>
             <li><span class="category-name">Leisure and Culture: </span><span class="rating">${currentCity.leisureAndCulture}</span></li>
         </ul>
-    </li>
+    </li></div></div>
     `;
         if (i === 9) {
             resultsElement += `</ol>
-            <div class="center-button"><button class="js-home show-button">Home</button></div></div></div>`
+            <div class="center-button"><button class="js-home show-button hide-desktop">Home</button></div>`
         }
     }
     return resultsElement;
@@ -324,9 +323,9 @@ function generateTopByCategoryElement() {
             Quality</button>
         <button id="taxation" value="go to taxation" class="category-button">Taxation</button>
         <button id="leisureAndCulture" value="go to leisure-and-culture" class="category-button">Leisure and
-            Culture</button>
-            <div class="center-button"><button class="js-home show-button">Home</button></div>
-    </div>`;
+            Culture</button></div>
+            <div class="center-button match-button"><button class="js-home show-button">Home</button></div>
+    `;
 }
 
 function generateTopByCategoryResultsElement() {
@@ -348,7 +347,7 @@ function generateTopByCategoryResultsElement() {
     </div>`;
         if (i === 9) {
             resultsElement += `</ol></div>
-            <div class="center-button"><button class="js-home show-button">Home</button></div>`
+            <div class="center-button"><button class="js-home show-button hide-desktop">Home</button></div>`
         }
     }
     return resultsElement;
@@ -479,16 +478,16 @@ function calculateScore() {
     for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
         let score = 0;
-        score += (currentCity.housing) * (matchOptions.housing);
-        score += (currentCity.costOfLiving) * (matchOptions.costOfLiving);
-        score += (currentCity.travelConnectivity) * (matchOptions.travelConnectivity);
-        score += (currentCity.commute) * (matchOptions.commute);
-        score += (currentCity.safety) * (matchOptions.safety);
-        score += (currentCity.healthcare) * (matchOptions.healthcare);
-        score += (currentCity.education) * (matchOptions.education);
-        score += (currentCity.environmentalQuality) * (matchOptions.environmentalQuality);
-        score += (currentCity.taxation) * (matchOptions.taxation);
-        score += (currentCity.leisureAndCulture) * (matchOptions.leisureAndCulture);
+        score += parseFloat((currentCity.housing)) * (matchOptions.housing);
+        score += parseFloat((currentCity.costOfLiving)) * (matchOptions.costOfLiving);
+        score += parseFloat((currentCity.travelConnectivity)) * (matchOptions.travelConnectivity);
+        score += parseFloat((currentCity.commute)) * (matchOptions.commute);
+        score += parseFloat((currentCity.safety)) * (matchOptions.safety);
+        score += parseFloat((currentCity.healthcare)) * (matchOptions.healthcare);
+        score += parseFloat((currentCity.education)) * (matchOptions.education);
+        score += parseFloat((currentCity.environmentalQuality)) * (matchOptions.environmentalQuality);
+        score += parseFloat((currentCity.taxation)) * (matchOptions.taxation);
+        score += parseFloat((currentCity.leisureAndCulture)) * (matchOptions.leisureAndCulture);
         scores[cities[i]] = score;
     }
     scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
@@ -499,7 +498,7 @@ function calculateScore() {
 function findTopByCategory() {
     for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
-        let score = currentCity[category];
+        let score = parseFloat(currentCity[category]);
         scores[cities[i]] = score;
     }
     categorySelected = category;
@@ -522,19 +521,22 @@ function findTopByCategory() {
 
 function findTopOverall() {
     let currentCity = {};
+    scores = {};
+    scoresSorted = [];
     for (let i = 0; i < cities.length; i++) {
         currentCity = cityList.find(o => o.name === cities[i]);
+        console.log(currentCity)
         let score = 0;
-        score += (currentCity.housing);
-        score += currentCity.costOfLiving;
-        score += currentCity.travelConnectivity;
-        score += currentCity.commute;
-        score += currentCity.safety;
-        score += currentCity.healthcare;
-        score += currentCity.education;
-        score += currentCity.environmentalQuality;
-        score += currentCity.taxation;
-        score += currentCity.leisureAndCulture;
+        score += parseFloat(currentCity.housing);
+        score += parseFloat(currentCity.costOfLiving);
+        score += parseFloat(currentCity.travelConnectivity);
+        score += parseFloat(currentCity.commute);
+        score += parseFloat(currentCity.safety);
+        score += parseFloat(currentCity.healthcare);
+        score += parseFloat(currentCity.education);
+        score += parseFloat(currentCity.environmentalQuality);
+        score += parseFloat(currentCity.taxation);
+        score += parseFloat(currentCity.leisureAndCulture);
         scores[cities[i]] = score;
     }
     scoresSorted = Object.keys(scores).sort(function (a, b) { return scores[b] - scores[a] });
