@@ -378,7 +378,7 @@ function generateCitySpecificElement() {
     <li><span class="category-name">Tolerance: </span><span class="rating">${currentCity.tolerance}</span></li>
     <li><span class="category-name">Outdoors: </span><span class="rating">${currentCity.outdoors}</span></li>
     </ul>
-    <div class="center-button"><button id="js-return-to-${returnTo}" class="show-button">Back to results</button>
+    <div class="center-button city-buttons"><button id="js-return-to-${returnTo}" class="show-button">Back to results</button>
     <button class="js-home show-button">Home</button></div>
     </div></div></div>
     `;

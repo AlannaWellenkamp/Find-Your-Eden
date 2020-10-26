@@ -105,7 +105,7 @@ button {
     margin: 15px;
 }
 
-.center-button {
+.center-button, .city-buttons {
     text-align: center;
     margin-top: 10px;
 }
@@ -237,9 +237,6 @@ ul .category-name {
 
 
 
-
-
-
 /*--------------------------------------------------------------------------------------------------------------------*/  
 
 /* Smartphones (landscape) ----------- */
@@ -247,9 +244,12 @@ ul .category-name {
     .wrapper {
         width: 90%;
     }
+    .match-options {
+        flex-flow: row wrap;
+    }
 }
 
-/* iPads (portrait) ----------- */
+/* tablet (portrait) ----------- */
  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
     .wrapper {
         width: 85%;
@@ -262,11 +262,11 @@ ul .category-name {
     .show-button, .category-button {                    
         padding:8px 16px;
     }
-
+    
 
 }
 
-/* iPads (landscape) ----------- */
+/* tablet (landscape) ----------- */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
     .wrapper {
         width: 80%;
@@ -278,6 +278,10 @@ ul .category-name {
 
     .show-button, .category-button {                    
         padding:8px 16px;
+    }
+
+    .match-options {
+        flex-flow: row wrap;
     }
 }
     
@@ -317,6 +321,11 @@ ul .category-name {
     .center-button {   
         text-align: center;
         width: 50%;
+    }
+
+    .city-buttons {   
+        text-align: left;
+        margin-left: 200px;
     }
 
     .hide-desktop {
