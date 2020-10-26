@@ -107,7 +107,7 @@ function generateHtml(store) {
 
 function generateHomeElement() {
     return `<div class="home">
-    <img src="homeImage.jpg">
+    <img src="images/home-image.jpg" alt="a metropolitan city set behind a river with foliage">
     <div id="buttons">
         <button id="personal-match-button" class="js-match-page show-button" value="go to personal match">Personal Match</button>
         <button id="top-by-category-button" class="js-top-by-category show-button" value="go to top by category">Top by Category</button>
