@@ -109,6 +109,7 @@ function generateHomeElement() {
     return `<div class="home">
     <img src="images/home-image.jpg" alt="a metropolitan city set behind a river with foliage">
     <div id="buttons">
+        <button id="about" class="js-about show-button" value="go to about">About</button>
         <button id="personal-match-button" class="js-match-page show-button" value="go to personal match">Personal Match</button>
         <button id="top-by-category-button" class="js-top-by-category show-button" value="go to top by category">Top by Category</button>
         <button id="top-overall-button" class="js-top-overall show-button" value="go to top by overall score">Top by Overall Score</button>
@@ -317,7 +318,7 @@ function generateMatchResultsElement() {
     `;
         if (i === 9) {
             resultsElement += `</ol>
-            <div class="center-button"><button class="js-home show-button hide-desktop">Home</button></div>`
+            <div class="center-button"><button class="js-home show-button">Home</button></div>`
         }
     }
     return resultsElement;
@@ -362,7 +363,7 @@ function generateTopByCategoryResultsElement() {
     </div>`;
         if (i === 9) {
             resultsElement += `</ol></div>
-            <div class="center-button"><button class="js-home show-button hide-desktop">Home</button></div>`
+            <div class="center-button"><button class="js-home show-button">Home</button></div>`
         }
     }
     return resultsElement;
