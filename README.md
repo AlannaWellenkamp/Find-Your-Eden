@@ -8,13 +8,13 @@ A simple application to help users explore United States cities based on what's 
 
 ## Screenshots
 
-[Home Page](images/home-screenshot.PNG)
+![Home Page](images/home-screenshot.PNG)
 
-[Preferences Page](images/preferences-select-screenshot.PNG)
+![Preferences Page](images/preferences-select-screenshot.PNG)
 
-[Results Page](images/results-screenshot.PNG)
+![Results Page](images/results-screenshot.PNG)
 
-[City Specific Page](images/city-specific-screenshot.PNG)
+![City Specific Page](images/city-specific-screenshot.PNG)
 
 ## Summary
 
