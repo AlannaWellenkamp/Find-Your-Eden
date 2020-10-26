@@ -83,6 +83,9 @@ function generateHtml(store) {
     if (stage === 'home') {
         return generateHomeElement();
     }
+    else if (stage === 'about') {
+        return generateAboutElement();
+    }
     else if (stage === 'matchSelect') {
         return generateMatchSelectElement();
     }
@@ -104,6 +107,17 @@ function generateHtml(store) {
 
 function generateHomeElement() {
     return `<div class="home">
+    <img src="homeImage.jpg">
+    <div id="buttons">
+        <button id="personal-match-button" class="js-match-page show-button" value="go to personal match">Personal Match</button>
+        <button id="top-by-category-button" class="js-top-by-category show-button" value="go to top by category">Top by Category</button>
+        <button id="top-overall-button" class="js-top-overall show-button" value="go to top by overall score">Top by Overall Score</button>
+    </div>
+    </div>`;
+}
+
+function generateAboutElement() {
+    return `<div class="about">
     <p>Hi there! Welcome to Find Your Eden, an app designed to help you find an ideal place to live in the United States based on what's important to you. Get personal matches by 
     rating the importance in each of 10 categories, find the top cities ranked by each of 10 categories, or view the top cities of all 10 categories combined with no weighting based
     on preference.</p>
@@ -395,6 +409,13 @@ function handleHomeSelect() {
     })
 }
 
+function handleAboutSelect() {
+    $('body').on('click', '.js-about', function (event) {
+        stage = 'about';
+        render();
+    })
+}
+
 function handleMatchPageSelect() {
     $('body').on('click', '.js-match-page', function (event) {
         stage = 'matchSelect';
@@ -548,6 +569,7 @@ function findTopOverall() {
 function runApp() {
     render();
     handleHomeSelect();
+    handleAboutSelect();
     handleMatchPageSelect();
     handleMatchSubmit();
     handleMatchReturn();

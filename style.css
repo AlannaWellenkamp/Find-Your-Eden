@@ -2,6 +2,12 @@
     box-sizing: border-box;
 }
 
+.home img {
+    width: 70%;
+    margin: auto;
+    display: block;
+}
+
 /*----------------------------------------------- HEADER AND NAV BAR ---------------------------------------------------------------------*/
 
 header {
@@ -10,10 +16,11 @@ header {
     color: #d5d5d5;
 }
   
-header h1 {
+header h1, a {
     text-align: center;
     margin: 0;
     padding-top: 20px;
+    text-decoration: none;
 }
 
 header nav {
@@ -118,7 +125,7 @@ h2, p {
     text-transform: capitalize;
 }
 
-.home p {
+.about p {
     text-align: left;
     letter-spacing: 1px;
     width: 95%;
@@ -309,7 +316,7 @@ ul .category-name {
         margin: 0;
     }
 
-    .home, .top-by-category-options, .result-list {
+    .about, .top-by-category-options, .result-list {
         width: 50%;
     }
 
@@ -319,7 +326,7 @@ ul .category-name {
     }
 
     .center-button {   
-        text-align: center;
+        
         width: 50%;
     }
 
@@ -331,7 +338,6 @@ ul .category-name {
     .hide-desktop {
         display: none;
     }
-
 
     header {
       display: flex;
@@ -363,6 +369,16 @@ ul .category-name {
 
     .city-specific-info, .city-specific-name{
         margin: 0 0 0 200px;
+    }
+
+    .home {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
     }
   
   }
