@@ -318,7 +318,7 @@ function generateMatchResultsElement() {
     `;
         if (i === 9) {
             resultsElement += `</ol>
-            <div class="center-button"><button class="js-home show-button">Home</button></div>`
+            <div class="center-button"><button class="js-home show-button hide-desktop">Home</button></div>`
         }
     }
     return resultsElement;
@@ -363,7 +363,7 @@ function generateTopByCategoryResultsElement() {
     </div>`;
         if (i === 9) {
             resultsElement += `</ol></div>
-            <div class="center-button"><button class="js-home show-button">Home</button></div>`
+            <div class="center-button"><button class="js-home show-button hide-desktop">Home</button></div>`
         }
     }
     return resultsElement;
