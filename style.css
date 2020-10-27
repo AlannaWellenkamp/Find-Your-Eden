@@ -254,6 +254,15 @@ ul .category-name {
     .match-options {
         flex-flow: row wrap;
     }
+    .home {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 /* tablet (portrait) ----------- */
@@ -289,6 +298,16 @@ ul .category-name {
 
     .match-options {
         flex-flow: row wrap;
+    }
+
+    .home {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    #buttons {
+        display: flex;
+        flex-direction: column;
     }
 }
     
